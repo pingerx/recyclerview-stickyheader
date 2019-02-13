@@ -1,4 +1,4 @@
-package com.pingerx.stickyheader.caching;
+package com.pingerx.stickyheader.internal;
 
 import android.util.LongSparseArray;
 import android.view.View;
@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.pingerx.stickyheader.StickyRecyclerHeadersAdapter;
-import com.pingerx.stickyheader.utils.OrientationProvider;
 
 
 /**

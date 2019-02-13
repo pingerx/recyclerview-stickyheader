@@ -6,12 +6,7 @@ import android.util.SparseArray;
 import android.view.View;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.pingerx.stickyheader.caching.HeaderProvider;
-import com.pingerx.stickyheader.caching.HeaderViewCache;
-import com.pingerx.stickyheader.calculation.DimensionCalculator;
-import com.pingerx.stickyheader.rendering.HeaderRenderer;
-import com.pingerx.stickyheader.utils.LinearLayoutOrientationProvider;
-import com.pingerx.stickyheader.utils.OrientationProvider;
+import com.pingerx.stickyheader.internal.*;
 
 
 public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration {
@@ -125,6 +120,7 @@ public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration
         }
     }
 
+
     /**
      * Gets the position of the header under the specified (x, y) coordinates.
      *
@@ -144,6 +140,7 @@ public class StickyRecyclerHeadersDecoration extends RecyclerView.ItemDecoration
         }
         return -1;
     }
+
 
     /**
      * Gets the header view for the associated position.  If it doesn't exist yet, it will be

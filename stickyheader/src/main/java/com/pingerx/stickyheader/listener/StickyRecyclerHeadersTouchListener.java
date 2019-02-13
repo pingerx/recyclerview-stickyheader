@@ -1,10 +1,13 @@
-package com.pingerx.stickyheader;
+package com.pingerx.stickyheader.listener;
 
+import android.graphics.Rect;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.SoundEffectConstants;
 import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
+import com.pingerx.stickyheader.StickyRecyclerHeadersAdapter;
+import com.pingerx.stickyheader.StickyRecyclerHeadersDecoration;
 
 public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTouchListener {
     private final GestureDetector mTapDetector;
@@ -57,8 +60,12 @@ public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTo
         // do nothing
     }
 
-    public interface OnHeaderClickListener {
-        void onHeaderClick(View header, int position, long headerId);
+    private boolean inRangeOfView(final View view, MotionEvent ev) {
+        Rect viewRect = new Rect();
+        view.getGlobalVisibleRect(viewRect);
+        int x = viewRect.left;
+        return !(ev.getX() < x)
+                && !(ev.getX() > (x + view.getWidth()));
     }
 
     private class SingleTapDetector extends GestureDetector.SimpleOnGestureListener {
@@ -68,6 +75,15 @@ public class StickyRecyclerHeadersTouchListener implements RecyclerView.OnItemTo
             if (position != -1) {
                 View headerView = mDecor.getHeaderView(mRecyclerView, position);
                 long headerId = getAdapter().getHeaderId(position);
+
+                for (int clickId : getAdapter().getChildClickIds()) {
+                    View childView = headerView.findViewById(clickId);
+                    if (inRangeOfView(childView, e) && childView.isEnabled()) {
+                        mOnHeaderClickListener.onChildClick(childView, position, headerId);
+                        return true;
+                    }
+                }
+
                 mOnHeaderClickListener.onHeaderClick(headerView, position, headerId);
                 mRecyclerView.playSoundEffect(SoundEffectConstants.CLICK);
                 headerView.onTouchEvent(e);

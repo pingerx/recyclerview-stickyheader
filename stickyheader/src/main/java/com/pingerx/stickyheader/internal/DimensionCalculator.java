@@ -1,4 +1,4 @@
-package com.pingerx.stickyheader.calculation;
+package com.pingerx.stickyheader.internal;
 
 import android.graphics.Rect;
 import android.view.View;

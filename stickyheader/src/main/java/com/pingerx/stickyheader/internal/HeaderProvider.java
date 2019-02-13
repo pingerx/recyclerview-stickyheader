@@ -1,4 +1,4 @@
-package com.pingerx.stickyheader.caching;
+package com.pingerx.stickyheader.internal;
 
 import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;

@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
@@ -13,7 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pingerx.stickyheader.StickyRecyclerHeadersAdapter
 import com.pingerx.stickyheader.StickyRecyclerHeadersDecoration
-import com.pingerx.stickyheader.StickyRecyclerHeadersTouchListener
+import com.pingerx.stickyheader.listener.OnHeaderClickListener
+import com.pingerx.stickyheader.listener.StickyRecyclerHeadersTouchListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -30,23 +30,31 @@ class MainActivity : AppCompatActivity() {
         recyclerView.addItemDecoration(headersDecor)
 
         val touchListener = StickyRecyclerHeadersTouchListener(recyclerView, headersDecor)
-        touchListener.setOnHeaderClickListener { header, position, headerId ->
-            Toast.makeText(recyclerView.context, "点击了$position", Toast.LENGTH_SHORT).show()
-
-
-            header.findViewById<Button>(R.id.btnClick).setOnClickListener {
-                Toast.makeText(recyclerView.context, "点击了", Toast.LENGTH_SHORT).show()
+        touchListener.setOnHeaderClickListener(object : OnHeaderClickListener {
+            override fun onHeaderClick(header: View?, position: Int, headerId: Long) {
+                Toast.makeText(recyclerView.context, "点击了$position", Toast.LENGTH_SHORT).show()
             }
-        }
+
+            override fun onChildClick(child: View?, position: Int, headerId: Long) {
+                if (child?.id == R.id.btnClick) {
+                    Toast.makeText(recyclerView.context, "点击了$child", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
         recyclerView.addOnItemTouchListener(touchListener)
     }
 
     inner class DemoAdapter : RecyclerView.Adapter<DemoHolder>(), StickyRecyclerHeadersAdapter<HeaderHolder> {
+
+        override fun getChildClickIds(): IntArray {
+            return intArrayOf(R.id.btnClick)
+        }
+
         override fun getHeaderId(position: Int): Long {
-            return if (position % 10 == 0) {
-                122312
+            return if (position > 30) {
+                123412341324
             } else {
-                12234234
+                23412341234
             }
         }
 

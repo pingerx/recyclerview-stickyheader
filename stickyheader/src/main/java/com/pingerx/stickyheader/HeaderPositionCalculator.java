@@ -6,9 +6,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.pingerx.stickyheader.caching.HeaderProvider;
-import com.pingerx.stickyheader.calculation.DimensionCalculator;
-import com.pingerx.stickyheader.utils.OrientationProvider;
+import com.pingerx.stickyheader.internal.DimensionCalculator;
+import com.pingerx.stickyheader.internal.HeaderProvider;
+import com.pingerx.stickyheader.internal.OrientationProvider;
 
 
 /**
@@ -131,7 +131,6 @@ public class HeaderPositionCalculator {
                     firstView.getLeft() - leftMargin - header.getWidth() - mTempRect1.right,
                     getListLeft(recyclerView) + mTempRect1.left);
         }
-
         headerMargins.set(translationX, translationY, translationX + header.getWidth(),
                 translationY + header.getHeight());
     }
@@ -213,7 +212,6 @@ public class HeaderPositionCalculator {
     private boolean itemIsObscuredByHeader(RecyclerView parent, View item, View header, int orientation) {
         RecyclerView.LayoutParams layoutParams = (RecyclerView.LayoutParams) item.getLayoutParams();
         mDimensionCalculator.initMargins(mTempRect1, header);
-
         int adapterPosition = parent.getChildAdapterPosition(item);
         if (adapterPosition == RecyclerView.NO_POSITION || mHeaderProvider.getHeader(parent, adapterPosition) != header) {
             // Resolves https://github.com/timehop/sticky-headers-recyclerview/issues/36

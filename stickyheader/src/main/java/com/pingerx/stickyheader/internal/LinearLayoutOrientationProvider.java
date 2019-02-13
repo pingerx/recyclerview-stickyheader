@@ -1,4 +1,4 @@
-package com.pingerx.stickyheader.utils;
+package com.pingerx.stickyheader.internal;
 
 
 import androidx.recyclerview.widget.LinearLayoutManager;

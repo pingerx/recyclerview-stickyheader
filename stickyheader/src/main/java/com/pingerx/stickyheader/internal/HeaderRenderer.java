@@ -1,12 +1,10 @@
-package com.pingerx.stickyheader.rendering;
+package com.pingerx.stickyheader.internal;
 
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.view.View;
 import android.widget.LinearLayout;
 import androidx.recyclerview.widget.RecyclerView;
-import com.pingerx.stickyheader.calculation.DimensionCalculator;
-import com.pingerx.stickyheader.utils.OrientationProvider;
 
 
 /**
